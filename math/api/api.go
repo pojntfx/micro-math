@@ -45,3 +45,35 @@ func (m *Math) Add(ctx context.Context, args *apiProto.Request, reply *apiProto.
 
 	return nil
 }
+
+func (m *Math) Subtract(ctx context.Context, args *apiProto.Request, reply *apiProto.Response) error {
+	log.Print("Received Math.Add request")
+
+	first, ok := args.Get["first"]
+	if !ok {
+		return errors.BadRequest("space.pojtinger.felicitas.api.math", "`first` cannot be blank")
+	}
+
+	second, ok := args.Get["second"]
+	if !ok {
+		return errors.BadRequest("space.pojtinger.felicitas.api.math", "`second` cannot be blank")
+	}
+
+	firstAsInt, _ := strconv.ParseInt(first.Values[0], 0, 64)
+	secondAsInt, _ := strconv.ParseInt(second.Values[0], 0, 64)
+
+	response, _ := m.Client.Subtract(ctx, &proto.MathSubtractArgs{
+		First:  secondAsInt,
+		Second: firstAsInt,
+	})
+
+	reply.StatusCode = 200
+
+	b, _ := json.Marshal(map[string]int64{
+		"result": response.Result,
+	})
+
+	reply.Body = string(b)
+
+	return nil
+}
