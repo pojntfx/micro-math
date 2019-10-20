@@ -16,7 +16,7 @@ func main() {
 
 	server.Server().Handle(
 		server.Server().NewHandler(
-			&api.Math{Client: proto.NewMathService("space.pojtinger.felicitas.api.svc", server.Client())},
+			&api.Math{Client: proto.NewMathService("space.pojtinger.felicitas.svc.math", server.Client())},
 		),
 	)
 
