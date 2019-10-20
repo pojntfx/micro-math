@@ -3,20 +3,22 @@ package main
 import (
 	"github.com/micro/go-micro"
 	"github.com/pojntfx/micro-math/math/api"
-	"github.com/pojntfx/micro-math/math/proto"
+	proto "github.com/pojntfx/micro-math/math/svc/proto/math"
 	"log"
 )
 
 func main() {
 	server := micro.NewService(
-		micro.Name("go.micro.api.math"),
+		micro.Name("space.pojtinger.felicitas.api.math"),
 	)
 
 	server.Init()
 
-	server.Server().Handle(server.Server().NewHandler(&api.Math{
-		Client: proto.NewMathService("go.micro.srv.math", server.Client()),
-	}))
+	server.Server().Handle(
+		server.Server().NewHandler(
+			&api.Math{Client: proto.NewMathService("space.pojtinger.felicitas.api.svc", server.Client())},
+		),
+	)
 
 	if err := server.Run(); err != nil {
 		log.Fatal(err)
