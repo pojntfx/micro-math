@@ -2,7 +2,7 @@
 
 syntax = "proto3";
 
-package go.micro.srv.math;
+package proto;
 
 service Math {
   rpc Add(MathAddArgs) returns (MathAddReply) {};

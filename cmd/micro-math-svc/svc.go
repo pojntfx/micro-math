@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/micro/go-micro"
 	"github.com/pojntfx/micro-math/math/svc"
-	proto "github.com/pojntfx/micro-math/math/svc/proto/math"
+	"github.com/pojntfx/micro-math/math/proto"
 	"log"
 	"time"
 )

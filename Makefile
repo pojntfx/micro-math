@@ -1,7 +1,7 @@
 all: build
 
 build:
-	protoc --micro_out=. --go_out=. ./*/*/*/*/*.proto
+	protoc --micro_out=. --go_out=. ./*/*/*.proto
 	go build ./...
 
 install:

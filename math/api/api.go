@@ -4,7 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	apiProto "github.com/micro/go-micro/api/proto"
-	proto "github.com/pojntfx/micro-math/math/svc/proto/math"
+	"github.com/micro/go-micro/errors"
+	"github.com/pojntfx/micro-math/math/proto"
 	"log"
 	"strconv"
 )
@@ -16,8 +17,15 @@ type Math struct {
 func (m *Math) Add(ctx context.Context, args *apiProto.Request, reply *apiProto.Response) error {
 	log.Print("Received Math.Add request")
 
-	first, _ := args.Get["first"]
-	second, _ := args.Get["second"]
+	first, ok := args.Get["first"]
+	if !ok {
+		return errors.BadRequest("space.pojtinger.felicitas.api.math", "`first` cannot be blank")
+	}
+
+	second, ok := args.Get["second"]
+	if !ok {
+		return errors.BadRequest("space.pojtinger.felicitas.api.math", "`second` cannot be blank")
+	}
 
 	firstAsInt, _ := strconv.ParseInt(first.Values[0], 0, 64)
 	secondAsInt, _ := strconv.ParseInt(second.Values[0], 0, 64)

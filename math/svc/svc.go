@@ -3,7 +3,7 @@ package svc
 import (
 	"context"
 	"fmt"
-	proto "github.com/pojntfx/micro-math/math/svc/proto/math"
+	"github.com/pojntfx/micro-math/math/proto"
 )
 
 type Math struct{}
