@@ -30,10 +30,13 @@ func (m *Math) Add(ctx context.Context, args *apiProto.Request, reply *apiProto.
 	firstAsInt, _ := strconv.ParseInt(first.Values[0], 0, 64)
 	secondAsInt, _ := strconv.ParseInt(second.Values[0], 0, 64)
 
-	response, _ := m.Client.Add(ctx, &proto.MathAddArgs{
+	response, err := m.Client.Add(ctx, &proto.MathAddArgs{
 		First:  firstAsInt,
 		Second: secondAsInt,
 	})
+	if err != nil {
+		return errors.InternalServerError("space.pojtinger.felicitas.api.math", "Could not call `space.pojtinger.felicitas.svc.math`", err)
+	}
 
 	reply.StatusCode = 200
 
@@ -47,7 +50,7 @@ func (m *Math) Add(ctx context.Context, args *apiProto.Request, reply *apiProto.
 }
 
 func (m *Math) Subtract(ctx context.Context, args *apiProto.Request, reply *apiProto.Response) error {
-	log.Print("Received Math.Add request")
+	log.Print("Received Math.Subtract request")
 
 	first, ok := args.Get["first"]
 	if !ok {
@@ -62,11 +65,13 @@ func (m *Math) Subtract(ctx context.Context, args *apiProto.Request, reply *apiP
 	firstAsInt, _ := strconv.ParseInt(first.Values[0], 0, 64)
 	secondAsInt, _ := strconv.ParseInt(second.Values[0], 0, 64)
 
-	response, _ := m.Client.Subtract(ctx, &proto.MathSubtractArgs{
+	response, err := m.Client.Subtract(ctx, &proto.MathSubtractArgs{
 		First:  secondAsInt,
 		Second: firstAsInt,
 	})
-
+	if err != nil {
+		return errors.InternalServerError("space.pojtinger.felicitas.api.math", "Could not call `space.pojtinger.felicitas.svc.math`", err)
+	}
 	reply.StatusCode = 200
 
 	b, _ := json.Marshal(map[string]int64{

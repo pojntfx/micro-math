@@ -2,15 +2,15 @@ package main
 
 import (
 	"github.com/micro/go-micro"
-	"github.com/pojntfx/micro-math/math/svc"
 	"github.com/pojntfx/micro-math/math/proto"
+	"github.com/pojntfx/micro-math/math/svc"
 	"log"
 	"time"
 )
 
 func main() {
 	server := micro.NewService(
-		micro.Name("space.pojtinger.felicitas.api.svc"),
+		micro.Name("space.pojtinger.felicitas.svc.math"),
 		micro.RegisterTTL(time.Second*30),
 		micro.RegisterInterval(time.Second*10),
 	)
