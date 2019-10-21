@@ -8,7 +8,7 @@ jobs:
       - name: Update system
         run: sudo apt update
       - name: Install make
-        run: sudo apt install -y build-essentials
+        run: sudo apt install -y build-essential
       - name: Install protobuf
         run: sudo apt install -y protobuf-compiler
       - name: Set up Go 1.13
